@@ -1,0 +1,37 @@
+pipeline{
+    agent any
+stages{
+    stage("checkout"){
+        steps{
+            git url: 'https://github.com/akshu20791/DevOpsClassCodes'
+        }
+    }
+    stage("compile the project"){
+        steps{
+            sh "mvn compile"
+        }
+    }
+    stage("testing of the code"){
+        steps{
+        echo "test started"
+        sh "mvn test"
+        echo "test completed"
+        }
+        
+    }
+    stage("quality assurance"){
+        steps{
+            echo "qa started"
+            sh "mvn pmd:pmd"
+            echo "qa completed"
+        }
+    }
+    stage("package"){
+        steps{
+            echo "package creation started"
+            sh "mvn package"
+            echo "package done"
+        }
+    }
+}
+}
